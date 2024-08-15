@@ -49,7 +49,7 @@ object practice_scrape {
       for (articleSection <- articleSections.iterator().asScala
       ){
         println(articleSection)
-        println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+        println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
       }
       for (articleSection <- articleSections.iterator().asScala) {
         val articleTitle = articleSection.text()

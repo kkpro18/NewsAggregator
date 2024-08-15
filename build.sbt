@@ -8,7 +8,7 @@ lazy val root = (project in file("."))
   )
 
 libraryDependencies ++= Seq(
-  "org.jsoup" % "jsoup" % "1.18.1", // Adjust the version if needed
+  "org.jsoup" % "jsoup" % "1.18.1",
   "net.ruippeixotog" %% "scala-scraper" % "3.1.1",
   "org.scala-lang.modules" %% "scala-collection-compat" % "2.12.0"
 
