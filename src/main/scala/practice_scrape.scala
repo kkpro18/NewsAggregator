@@ -1,11 +1,9 @@
 import org.jsoup.Jsoup
 
+import scala.collection.mutable.HashMap
+import scala.jdk.CollectionConverters.*
+
 object practice_scrape {
-
-  import org.jsoup.Jsoup
-  import org.jsoup.nodes.Document
-  import scala.util.matching.Regex
-
 
   def main(args: Array[String]): Unit = {
 //    val browser = JsoupBrowser()
@@ -43,21 +41,57 @@ object practice_scrape {
         .connect(url)
         .userAgent(userAgent)
         .get()
-      val articleSections1 = doc.select("a.js-content-viewer") // scrapes fine and loads lot of news but as one text needs to be split
-      val articleSections = articleSections1.split("</a>") // split method not working
-
+      val articleSections = doc.select("a.js-content-viewer") // scrapes fine and loads lot of news but as one text needs to be split
+//      val articleSections = articleSections1.split("</a>") // split method not working
       var articleTitles = List[String]()
       var articleLinks = List[String]()
       println(articleSections)
-      for (articleSection <- articleSections) {
-        val title = articleSection.text()
+      for (articleSection <- articleSections.iterator().asScala
+      ){
+        println(articleSection)
+        println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+      }
+      for (articleSection <- articleSections.iterator().asScala) {
+        val articleTitle = articleSection.text()
         val path = articleSection.attr("href")
-        val articleLink = s"$url$path"
-        articleTitles = articleTitle :: articleTitles
-        articleLinks = articleLink :: articleLinks
+        if (!(url contains path)) {
+          val articleLink = s"$url$path"
+          articleLinks = articleLink +: articleLinks
+        } else {
+          val articleLink = s"$url"
+          articleLinks = articleLink +: articleLinks
+        }
+        articleTitles = articleTitle +: articleTitles
       }
     println(articleTitles)
     println(articleLinks)
+    println(articleTitles.length)
+    println(articleLinks.length)
+
+//    val url = "https://uk.news.yahoo.com"
+//
+//    val userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
+//
+//    val doc = Jsoup
+//      .connect(url)
+//      .userAgent(userAgent)
+//      .get()
+//
+//    val articleSections = doc.select("a.js-content-viewer")
+//
+//    val todayNewsStories = HashMap[String, String]()
+//
+//    for (articleSection <- articleSections.iterator().asScala) {
+//        val articleTitle = articleSection.text()
+//        val path = articleSection.attr("href")
+//        val articleLink = if (!(path contains url)) {
+//          s"$url$path"
+//        } else {
+//          s"$url"
+//        }
+//        todayNewsStories += (articleLink -> articleTitle)
+//      }
+//    println(todayNewsStories.size)
 
   }
 
